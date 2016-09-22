@@ -4,6 +4,7 @@ from flask import Flask
 
 from wordfor import public
 from wordfor.api.v1 import users
+from wordfor.assets import assets
 from wordfor.extensions import (bcrypt, cache, db, debug_toolbar,
                                 login_manager, migrate)
 from wordfor.settings import ProdConfig
@@ -24,6 +25,7 @@ def create_app(config_object=ProdConfig):
 
 def register_extensions(app):
     """Register Flask extensions."""
+    assets.init_app(app)
     bcrypt.init_app(app)
     cache.init_app(app)
     db.init_app(app)

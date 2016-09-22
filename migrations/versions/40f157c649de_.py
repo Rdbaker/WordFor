@@ -1,4 +1,4 @@
-"""Initial create for
+"""Initial create for users and roles.
 
 Revision ID: 40f157c649de
 Revises: None

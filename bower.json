@@ -1,0 +1,23 @@
+{
+  "name": "WordFor",
+  "homepage": "https://github.com/Rdbaker/WordFor",
+  "authors": [
+    "Ryan Baker <ryan.da.baker@gmail.com>"
+  ],
+  "description": "A reverse dictionary",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "wordfor/static/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jQuery": "^3.1.0",
+    "backbone": "^1.3.3",
+    "font-awesome": "^4.6.3"
+  }
+}
