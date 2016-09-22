@@ -1,6 +1,9 @@
 # Everything the developer needs in addition to the production requirements
 -r prod.txt
 
+# heroku already has this and requires that we don't specify it
+setuptools==27.2.0
+
 # Testing
 pytest==3.0.2
 WebTest==2.0.23
