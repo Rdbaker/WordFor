@@ -1,6 +1,8 @@
 ===============================
 WordFor
 ===============================
+.. image:: https://travis-ci.org/Rdbaker/WordFor.svg?branch=master
+    :target: https://travis-ci.org/Rdbaker/WordFor
 
 A reverse dictionary.
 
