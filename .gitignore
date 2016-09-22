@@ -50,3 +50,4 @@ env/
 node_modules
 
 .ropeproject
+wordfor/static/libs
