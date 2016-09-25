@@ -2,20 +2,22 @@
 # -*- coding: utf-8 -*-
 """Management script."""
 import os
-from glob import glob
-from subprocess import call
 
-from flask.ext.sqlalchemy import sqlalchemy
 from flask_migrate import Migrate, MigrateCommand
-from flask_script import Command, Manager, Option, Server, Shell
+from flask_script import Manager, Server, Shell
 from flask_script.commands import Clean, ShowUrls
 
 from wordfor.app import create_app
 from wordfor.database import db
-from wordfor.settings import DevConfig, ProdConfig
+from wordfor.settings import DevConfig, ProdConfig, TestConfig
 import wordfor.models as models
 
-CONFIG = ProdConfig if os.environ.get('WORDFOR_ENV') == 'prod' else DevConfig
+ENV_CONFIG_MAP = {
+    'prd': ProdConfig,
+    'dev': DevConfig,
+    'test': TestConfig
+}
+CONFIG = ENV_CONFIG_MAP[os.environ.get('WORDFOR_ENV', 'dev')]
 HERE = os.path.abspath(os.path.dirname(__file__))
 TEST_PATH = os.path.join(HERE, 'tests')
 CREATE_DB = 'create database %s'

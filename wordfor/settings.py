@@ -8,7 +8,6 @@ class Config(object):
 
     SECRET_KEY = os.environ.get('WORDFOR_SECRET', 'secret-key')
     APP_DIR = os.path.abspath(os.path.dirname(__file__))  # This directory
-    BABEL_BIN = os.path.abspath(os.path.join(APP_DIR, '../node_modules/.bin/babel'))
     PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
     BCRYPT_LOG_ROUNDS = 13
     ASSETS_DEBUG = False
@@ -26,7 +25,7 @@ class Config(object):
 class ProdConfig(Config):
     """Production configuration."""
 
-    ENV = 'prod'
+    ENV = 'prd'
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     DEBUG_TB_ENABLED = False  # Disable Debug toolbar
@@ -38,6 +37,7 @@ class DevConfig(Config):
     ENV = 'dev'
     DEBUG = True
     DB_NAME = 'dev.db'
+    DEBUG_TB_PROFILER_ENABLED = True
     # Put the db file in project root
     DB_PATH = os.path.join(Config.PROJECT_ROOT, DB_NAME)
     DEBUG_TB_ENABLED = True
