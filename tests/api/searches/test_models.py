@@ -13,12 +13,12 @@ class TestSearchModel():
         char_200_len = char_201_len[:-1]
 
         # this should simply not raise an error
-        search = models.Search(query=char_200_len)
+        search = models.Search(query_string=char_200_len)
         search.save()
 
         from sqlalchemy.exc import DataError
         with pytest.raises(DataError):
-            search = models.Search(query=char_201_len)
+            search = models.Search(query_string=char_201_len)
             search.save()
 
     def test_query_required_for_search(self):
