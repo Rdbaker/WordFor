@@ -40,7 +40,7 @@ class Answer(Model):
         return self.score
 
     def __repr__(self):
-        return "<Answer({word})".format(word=self.word.name)
+        return "<Answer({word})>".format(word=self.word.name)
 
 
 class Word(SurrogatePK, Model):
@@ -51,7 +51,7 @@ class Word(SurrogatePK, Model):
     definitions = relationship("Definition")
 
     def __repr__(self):
-        return "<Word({name})".format(name=self.name)
+        return "<Word({name})>".format(name=self.name)
 
 
 class Definition(SurrogatePK, Model):
@@ -99,7 +99,7 @@ class Definition(SurrogatePK, Model):
             >>> empathy.definitions[0]
             <Definition(empathy n.)>
         """
-        return "<Definition({name} {word_class}.)" \
+        return "<Definition({name} {word_class}.)>" \
             .format(word_class=self.word_class[:1], name=self.word.name)
 
     @property
