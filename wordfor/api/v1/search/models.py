@@ -50,6 +50,14 @@ class Word(SurrogatePK, Model):
     name = Column(db.String, nullable=False)
     definitions = relationship("Definition")
 
+    @classmethod
+    def find_or_create_by_name(cls, name):
+        word = cls.query.fitler(cls.name == name).first()
+        if word is not None:
+            return word
+        else:
+            return cls.create(name=name)
+
     def __repr__(self):
         return "<Word({name})>".format(name=self.name)
 
