@@ -14,7 +14,7 @@ js = Bundle(
     'libs/backbone/backbone.js',
     'libs/jQuery/dist/jquery.js',
     'libs/bootstrap/dist/js/bootstrap.js',
-    filters='jsmin',
+    filters='rjsmin',
     output='public/js/compiled/common.js'
 )
 
