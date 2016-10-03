@@ -13,7 +13,7 @@ class Search(SurrogatePK, Model):
     __tablename__ = 'searches'
     user_id = reference_col('users', nullable=True)
     user = relationship('User', backref='searches')
-    query = Column(db.String(length=200), nullable=False)
+    query_string = Column(db.String(length=200), nullable=False)
     answers = relationship("Answer")
 
     def __repr__(self):
@@ -40,7 +40,7 @@ class Answer(Model):
         return self.score
 
     def __repr__(self):
-        return "<Answer({word})".format(word=self.word.name)
+        return "<Answer({word})>".format(word=self.word.name)
 
 
 class Word(SurrogatePK, Model):
@@ -51,7 +51,7 @@ class Word(SurrogatePK, Model):
     definitions = relationship("Definition")
 
     def __repr__(self):
-        return "<Word({name})".format(name=self.name)
+        return "<Word({name})>".format(name=self.name)
 
 
 class Definition(SurrogatePK, Model):
@@ -91,8 +91,16 @@ class Definition(SurrogatePK, Model):
         return word_class
 
     def __repr__(self):
-        return "<Definition({word_class}. {name})" \
-            .format(word_class=self.word_class[1:], name=self.name)
+        """Return a string representing a word definition as a dictionary would
+
+        example usage:
+
+            >>> empathy = Word.get(empathy_id)
+            >>> empathy.definitions[0]
+            <Definition(empathy n.)>
+        """
+        return "<Definition({name} {word_class}.)>" \
+            .format(word_class=self.word_class[:1], name=self.word.name)
 
     @property
     def part_of_speech(self):
