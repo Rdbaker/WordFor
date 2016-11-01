@@ -1,3 +1,8 @@
+"""This file contains the lookup algorithm classes. They may not necessarily
+contain all lookup logic."""
+
+from datetime import datetime as dt
+
 from wordfor.api.v1.search.models import Answer, Word, Search
 
 
@@ -17,23 +22,42 @@ class Lookup(object):
         if self.search is None:
             raise TypeError('Argument search_id does not correspond to an '
                             'existing search\'s ID.')
-        self.report_answers(self.run(search_query))
+        lookup_start = dt.now()
+        answers = self.run(search_query)
+        self.report_answers(answers, dt.now() - lookup_start)
 
     def run(self, search_query):
         """Run the algorithm. Find the search query with self.search_query and
         return a list of tuples as (Word, float) that represent the word and
         score match, respectively. The list of tuples is to be returned to be
-        associated with the search via the self.search_id."""
+        associated with the search via the self.search_id.
+
+        :param string: search_query -- this is the query string for the search
+            that will be used to compute the answers that the input was likely
+            looking for.
+
+        :return: [tuple(Word, float)] -- the return value is a list of
+            (Word, float) tuples that will be coerced into answers for the
+            given search."""
         raise NotImplementedError('This lookup did not create a "run" method')
 
-    def report_answers(self, answers):
-        """Receive the list of (Word, float) tuples and create Answers out of
-        them and the self.search_id."""
+    def report_answers(self, answers, runtime):
+        """Create the answers for the search query.
+
+        :param [tuple(Word, float)]: answers -- the list of (Word, float)
+            tuples that will be used to create an answer. The word is the
+            answer.word association and the float is the answer.score
+            association.
+        :param timedelta: runtime -- the timedelta that is recorded as the
+            runtime for the computed answer.
+
+        :return: None
+        """
         for word, score in answers:
             Answer.create(search=self.search,
                           word=word,
                           score=score,
-                          runtime=None)
+                          runtime=runtime)
 
 
 class TrivialLookup(Lookup):

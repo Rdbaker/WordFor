@@ -7,6 +7,7 @@ from wordfor import public
 from wordfor.api.errors import APIError
 from wordfor.api.v1 import users
 from wordfor.api.v1 import search
+from wordfor.api.v1 import words
 from wordfor.assets import assets
 from wordfor.extensions import (bcrypt, cache, db, debug_toolbar,
                                 login_manager, migrate)
@@ -44,6 +45,7 @@ def register_blueprints(app):
     app.register_blueprint(public.views.blueprint)
     app.register_blueprint(users.views.blueprint)
     app.register_blueprint(search.views.blueprint)
+    app.register_blueprint(words.views.blueprint)
     return None
 
 
