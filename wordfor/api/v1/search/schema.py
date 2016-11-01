@@ -29,7 +29,7 @@ class SearchSchema(Schema):
     def nullify_empty_answers(self, data, many):
         """Set the "answers" field to None instead of an empty list."""
         def nullify_if_necessary(data):
-            if not data['answers']:
+            if data and not data.get('answers'):
                 data['answers'] = None
 
         if not many:
