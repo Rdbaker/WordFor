@@ -8,7 +8,7 @@ var router = Backbone.Router.extend({
   search: function(query) {
     var search = new Search();
 
-    search.save('query', query, {'success': function(searchResponse) {
+    search.save('query_string', query, {'success': function(searchResponse) {
       var div = document.createElement('div');
       div.innerText = searchResponse.get('query');
       document.body.appendChild(div);
