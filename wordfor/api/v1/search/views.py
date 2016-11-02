@@ -2,7 +2,6 @@
 """Search views."""
 from flask import Blueprint, request
 
-from wordfor.api.errors import NotFoundError
 from wordfor.api.v1.search.models import Search
 from wordfor.api.v1.search.schema import SearchSchema
 from wordfor.extensions import db
@@ -22,9 +21,6 @@ def list_searches():
 def get_search_by_id(sid):
     """Get a specific search by its ID."""
     search = db.session.query(Search).get(sid)
-    if search is None:
-        raise NotFoundError(description='Search with ID: {} could not be found'
-                            .format(sid))
     return SEARCH_SCHEMA.dumps(search)
 
 
@@ -32,7 +28,7 @@ def get_search_by_id(sid):
 def search():
     """Create a new search."""
     existing_search = Search.query \
-        .filter(Search.query_string == request.json['query'].lower()) \
+        .filter(Search.query_string == request.json['query_string'].lower()) \
         .first()
     if existing_search is not None:
         search = existing_search
