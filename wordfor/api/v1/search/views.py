@@ -28,7 +28,7 @@ def get_search_by_id(sid):
 def search():
     """Create a new search."""
     existing_search = Search.query \
-        .filter(Search.query_string == request.json.get('query_string')
+        .filter(Search.query_string == request.json.get('query_string', '')
                 .lower()).first()
     if existing_search is not None:
         search = existing_search
