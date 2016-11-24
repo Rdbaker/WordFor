@@ -52,7 +52,7 @@ class Word(SurrogatePK, Model):
 
     @classmethod
     def find_or_create_by_name(cls, name):
-        word = cls.query.fitler(cls.name == name).first()
+        word = cls.query.filter(cls.name == name).first()
         if word is not None:
             return word
         else:
@@ -91,8 +91,8 @@ class Definition(SurrogatePK, Model):
         (retrieved 2016)
         """
         if word_class.lower() not in self.word_classes:
-            raise UnprocessableEntityError(description='Word class {} is ' +
-                                           'not an acceptable word class ' +
+            raise UnprocessableEntityError(description='Word class {} is '
+                                           'not an acceptable word class '
                                            'must be one of: {}'
                                            .format(word_class,
                                                    self.word_classes))

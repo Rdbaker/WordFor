@@ -42,6 +42,13 @@ def test():
     return exit_code
 
 
+@manager.command
+def ingest():
+    """Ingest data from remote sources."""
+    from wordfor.ingest.oxford_learner import OxfordLearnerSource
+    OxfordLearnerSource()
+
+
 manager.add_command('server', Server())
 manager.add_command('shell', Shell(make_context=_make_context))
 manager.add_command('db', MigrateCommand)
