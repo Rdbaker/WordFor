@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Search views."""
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 
 from wordfor.api.v1.search.models import Search
 from wordfor.api.v1.search.schema import SearchSchema
@@ -14,14 +14,14 @@ SEARCH_SCHEMA = SearchSchema()
 @blueprint.route('/', methods=['GET'], strict_slashes=False)
 def list_searches():
     """List all searches."""
-    return SEARCH_SCHEMA.dumps(Search.query.all(), many=True)
+    return jsonify(data=SEARCH_SCHEMA.dump(Search.query.all(), many=True).data)
 
 
 @blueprint.route('/<int:sid>', methods=['GET'])
 def get_search_by_id(sid):
     """Get a specific search by its ID."""
     search = db.session.query(Search).get(sid)
-    return SEARCH_SCHEMA.dumps(search)
+    return jsonify(data=SEARCH_SCHEMA.dump(search).data)
 
 
 @blueprint.route('/', methods=['POST'], strict_slashes=False)
@@ -37,4 +37,4 @@ def search():
         search = Search(**search_data.data)
         search.save()
         Seeker(search.id, search.query_string)
-    return SEARCH_SCHEMA.dumps(search)
+    return jsonify(data=SEARCH_SCHEMA.dump(search).data)

@@ -3,7 +3,7 @@ from wordfor.api.errors import UnprocessableEntityError
 
 
 class BaseSource(object):
-    def __init__(self):
+    def run(self):
         self.parse(self.extract(self.crawl()))
 
     def crawl(self):

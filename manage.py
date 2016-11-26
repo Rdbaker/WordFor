@@ -46,7 +46,8 @@ def test():
 def ingest():
     """Ingest data from remote sources."""
     from wordfor.ingest.oxford_learner import OxfordLearnerSource
-    OxfordLearnerSource()
+    ol_src = OxfordLearnerSource()
+    ol_src.run()
 
 
 manager.add_command('server', Server())

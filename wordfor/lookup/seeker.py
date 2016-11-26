@@ -1,6 +1,6 @@
 import multiprocessing as mp
 
-from wordfor.lookup.lookup import TrivialLookup
+from wordfor.lookup.lookup import ExactLookup
 
 
 class Seeker(object):
@@ -8,7 +8,9 @@ class Seeker(object):
     logic. This class will choose a lookup algorithm to run and spin it off in
     a separate process to contain the work outside of the web server process
     and let the OS handle the context switching that needs to happen."""
-    lookup_class = TrivialLookup
+
+    """This is the class that will be used to create a new lookup attempt."""
+    lookup_class = ExactLookup
 
     def __init__(self, search_id, query_string):
         """Create a new seeker. This is the class that spawns a new process to

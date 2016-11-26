@@ -48,6 +48,8 @@ class AnswerSchema(Schema):
 
     score = fields.Float(dump_only=True)
     word = fields.Nested('WordSchema', dump_only=True)
+    runtime = fields.TimeDelta(precision='microseconds',
+                               dump_to='runtime_microseconds', dump_only=True)
 
     class Meta:
         type_ = 'answers'

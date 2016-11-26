@@ -3,7 +3,7 @@ contain all lookup logic."""
 
 from datetime import datetime as dt
 
-from wordfor.api.v1.search.models import Answer, Word, Search
+from wordfor.api.v1.search.models import Answer, Word, Search, Definition
 
 
 class Lookup(object):
@@ -60,12 +60,14 @@ class Lookup(object):
                           runtime=runtime)
 
 
-class TrivialLookup(Lookup):
+class ExactLookup(Lookup):
     """My first lookup algorithm! Wow, look at me go! Big data and all that.
-    Some people trivialize machine learning to the phrase "counting stuff".
-    I think that this is a kind of nicely manifested code version of that
-    phrase (even though it's not even counting anything)."""
+    I'm going to keep this one simple, then add more bells and whistles and
+    smarter strategies to later lookup algorithms."""
 
     def run(self, search_query):
-        """Eh, let's just return a single word with a 100% score."""
-        return [(Word.query.first(), 1.0)]
+        """Eh, let's just return all the words that have the exact lookup
+        definition."""
+        return [(defin.word, 1.0)
+                for defin in Definition.query.filter(
+                    Definition.description == search_query).all()]
